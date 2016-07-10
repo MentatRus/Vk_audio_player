@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    private MediaPlayer mMediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,14 @@ public class MainActivity extends AppCompatActivity {
 
         }
         loadMusic();
+        Button stopButton = (Button) findViewById(R.id.button_stop);
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMediaPlayer.stop();
+            }
+        });
+
 //        VKRequest currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,bdate"));
 //        currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
 //            @Override
@@ -136,21 +147,21 @@ public class MainActivity extends AppCompatActivity {
                         imageButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                MediaPlayer mediaPlayer = new MediaPlayer();
+                                mMediaPlayer = new MediaPlayer();
                                 try {
-                                    mediaPlayer.setDataSource(audio.url);
+                                    mMediaPlayer.setDataSource(audio.url);
                                 } catch (IOException ex) {
                                     ex.printStackTrace();
                                 }
 
-                                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                                mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                                     @Override
                                     public void onPrepared(MediaPlayer mp) {
                                         mp.start();
                                     }
                                 });
-                                mediaPlayer.prepareAsync();
+                                mMediaPlayer.prepareAsync();
                             }
                         });
 

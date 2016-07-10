@@ -4,13 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,11 +19,8 @@ import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
-import com.vk.sdk.VKUIHelper;
 import com.vk.sdk.api.VKApi;
-import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
-import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiAudio;
@@ -30,7 +28,6 @@ import com.vk.sdk.api.model.VkAudioArray;
 import com.vk.sdk.util.VKUtil;
 
 import java.io.IOException;
-import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -134,8 +131,9 @@ public class MainActivity extends AppCompatActivity {
                         View item = inflater.inflate(R.layout.audio_item, parent, false);
                         TextView artist = (TextView) item.findViewById(R.id.textView_artist);
                         TextView track = (TextView)item.findViewById(R.id.textView_track);
+                        ImageButton imageButton = (ImageButton) item.findViewById(R.id.imageButton);
                         final VKApiAudio audio = audios.get(position);
-                        artist.setOnClickListener(new View.OnClickListener() {
+                        imageButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 MediaPlayer mediaPlayer = new MediaPlayer();
